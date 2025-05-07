@@ -1,0 +1,27 @@
+body {
+	background-color: #191919;
+	color: white;
+	font-family: Helvetica, sans-serif;
+	max-width: 500px;
+	margin: auto;
+	padding: 20px;
+}
+
+.delicity {color: #009fd8; font-weight: bold;}
+
+h2 {text-align: center;}
+
+label, .output {margin-top: 20px; display: block;}
+
+.slider-label {display: flex; justify-content: space-between;}
+
+#orders, #commission {
+	width: 400px;
+	
+}
+
+#ordersLabel, #commissionLabel {color: gray;}
+
+.losses {color: red;}
+
+.gains {color: green;}
