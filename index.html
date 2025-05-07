@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Calcul de Commissions</title>
+	<style>
+		body {
+			font-family: Helvetica, sans-serif;
+			max-width: 500px;
+			margin: auto;
+			padding: 20px;
+		}
+		h2 { text-align: center; }
+		label, .output { margin-top: 20px; display: block; }
+		.slider-label { display: flex; justify-content: space-between; }
+		.losses { color: red; }
+		.gains { color: green; }
+	</style>
+</head>
+<body>
+	<h2>Simuler les économies potentielles<br>pour votre restaurant</h2>
+
+	<label>Chaque mois, combien de commandes réalisez-vous sur d'autres plateformes ?</label>
+	<div class="slider-label">
+		<input type="range" id="orders" min="0" max="1200" step="5" value="0" oninput="updateFigures()">
+		<span id="ordersLabel">0/mois</span>
+	</div>
+
+	<label>Quel est votre taux de commission actuel ?</label>
+	<div class="slider-label">
+		<input type="range" id="commission" min="15" max="36" step="1" value="15" oninput="updateFigures()">
+		<span id="commissionLabel">15%</span>
+	</div>
+
+	<div class="output">
+		<strong>Actuellement, vous payez aux autres plateformes :</strong>
+		<div id="costOutput" class="losses">0 € de commissions par an...</div>
+	</div>
+
+	<div class="output">
+		<strong>D'après les réponses, vous pourriez faire avec Delicity jusqu'à :</strong>
+		<div id="savingsOutput" class="gains">0 € d'économies potentielles par an !</div>
+	</div>
+
+	<script>
+		function formatNumber(num) {
+			return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+		}
+
+		function updateFigures() {
+			const orders = Math.round(document.getElementById('orders').value / 5) * 5;
+			const commission = parseInt(document.getElementById('commission').value);
+
+			document.getElementById('orders').value = orders;
+			document.getElementById('ordersLabel').innerText = `${orders}/mois`;
+			document.getElementById('commissionLabel').innerText = `${commission}%`;
+
+			const annualOrders = orders * 12;
+			const cost = Math.round(annualOrders * 30 * (commission / 100));
+			const savings = Math.round(cost - (annualOrders * 1.5));
+
+			document.getElementById('costOutput').innerText = `${formatNumber(cost)} € de commissions par an...`;
+			document.getElementById('savingsOutput').innerText = `${formatNumber(savings)} € d'économies potentielles par an !`;
+		}
+
+		updateFigures();
+	</script>
+</body>
+</html>
